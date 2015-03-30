@@ -38,10 +38,11 @@ if num_playing > 1:
             duration = int(obj['MediaContainer']['Video'][i]['@duration'])
             current = int(obj['MediaContainer']['Video'][i]['@viewOffset'])
         progress = int((current/duration)*100)
-        string = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done"
-        print string
+        message = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done"
+        title = "[PLEX] " + username + " is Watching"
+        print message
         pb = Pushbullet(PB_KEY)
-        push = pb.push_note("[PLEX]",string)
+        push = pb.push_note(title,message)
 elif num_playing == 1 :
     media_type = str(obj['MediaContainer']['Video']['@type'])
     if media_type == "movie":
@@ -56,10 +57,11 @@ elif num_playing == 1 :
         duration = float(obj['MediaContainer']['Video']['@duration'])
         current = float(obj['MediaContainer']['Video']['@viewOffset'])
     progress = float((current/duration)*100)
-    string = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done"
+    message = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done"
+    title = "[PLEX] " + username + " is Watching"
     print string
     pb = Pushbullet(PB_KEY)
-    push = pb.push_note("[PLEX]",string)
+    push = pb.push_note(title,message)
 else:
     print "No one is watching anything"
 
