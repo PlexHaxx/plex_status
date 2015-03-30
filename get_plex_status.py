@@ -3,14 +3,14 @@ import xmltodict
 from pushbullet import Pushbullet
 
 # read my push bullet key from a file, so we can commit this.
-f = open("pb_key.txt","r")
+f = open("/home/bsmith/repos/plex_status/pb_key.txt","r")
 x = f.readline()
 y = x.strip('\n')
 PB_KEY = y
 f.close()
 
 # open a temp file to store the xml.
-f = open("temp.xml","wr")
+f = open("/home/bsmith/repos/plex_status/temp.xml","wr")
 response = urllib2.urlopen('http://192.168.1.24:32400/status/sessions/')
 xml = response.read()
 f.write(xml)
