@@ -50,15 +50,17 @@ if num_playing > 1:
             playing = str(obj['MediaContainer']['Video'][i]['@title'])
             duration = float(obj['MediaContainer']['Video'][i]['@duration'])
             current = float(obj['MediaContainer']['Video'][i]['@viewOffset'])
+            platform = str(obj['MediaContainer']['Video'][i]['Player']['@platform'])
         else:
             username = str(obj['MediaContainer']['Video'][i]['User']['@title'])
+            platform = str(obj['MediaContainer']['Video'][i]['Player']['@platform'])
             playing = str(obj['MediaContainer']['Video'][i]['@grandparentTitle'])
             duration = float(obj['MediaContainer']['Video'][i]['@duration'])
             current = float(obj['MediaContainer']['Video'][i]['@viewOffset'])
         progress = float((current/duration)*100)
         progress = round(progress,2)
         message = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done"
-        title = "[PLEX] " + username + " is Watching"
+        title = "[PLEX] " + username + " is Watching " + playing
         print message
         pb = Pushbullet(PB_KEY)
         push = pb.push_note(title,message)
@@ -72,15 +74,17 @@ elif num_playing == 1 :
         playing = str(obj['MediaContainer']['Video']['@title'])
         duration = float(obj['MediaContainer']['Video']['@duration'])
         current = float(obj['MediaContainer']['Video']['@viewOffset'])
+        platform = str(obj['MediaContainer']['Video']['Player']['@platform'])
     else:
         username = str(obj['MediaContainer']['Video']['User']['@title'])
         playing = str(obj['MediaContainer']['Video']['@grandparentTitle'])
         duration = float(obj['MediaContainer']['Video']['@duration'])
         current = float(obj['MediaContainer']['Video']['@viewOffset'])
+        platform = str(obj['MediaContainer']['Video']['Player']['@platform'])
     progress = float((current/duration)*100)
     progress = round(progress,2)
-    message = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done"
-    title = "[PLEX] " + username + " is Watching"
+    message = username + " is Playing \"" + playing  + "\" on Plex and is at " + str(progress) + " percent done. Playing on " + platform
+    title = "[PLEX] " + username + " is Watching " + playing
     print message
     pb = Pushbullet(PB_KEY)
     push = pb.push_note(title,message)
